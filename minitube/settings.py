@@ -82,8 +82,8 @@ WSGI_APPLICATION = 'minitube.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': env('DB_NAME'),
-        # 'URL': env('DB_URL'),
+        # 'NAME': env('DB_NAME'),
+        'URL': env('DB_URL'),
     }
 }
 
