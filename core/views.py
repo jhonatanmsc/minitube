@@ -66,9 +66,9 @@ class AddVideoView(CreateView):
         form = request.POST
         video = Video.objects.create(
             title=form['title'],
-            media='/videos/'+form['media'],
+            media='videos/'+form['media'],
             descr=form['descr'],
-            thumbnail=form['thumbnail'],
+            thumbnail='thumbnail/'+form['thumbnail'],
         )
         for theme in form['themes']:
             if video.themes.filter(descr=theme) and not Theme.object.filter(descr=theme):
