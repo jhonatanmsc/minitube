@@ -83,9 +83,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': env('DB_NAME'),
-        'URL': env('DB_URL'),
-        'PASSWORD': env('DB_PWD'),
-        'USER': env('DB_USER')
     }
 }
 
