@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><i class="far fa-play-circle text-danger"></i> MiniTube</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="{% url 'scores' %}">Scores</a>
+    </div>
+  </div>
+</nav>
+
+<div class="pr-5 pl-5 pt-4">
+    <form class="row" method="post">{% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+    <div class="form-group col-md-6">
+        {% if field.errors %}
+            <label class="text-danger" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            <div class="invalid-feedback">
+                {{ field.errors }}
+            </div>
+        {% else %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        {% endif %}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary col-md-12">upload new video</button>
+</form>
+</div>
+{% endblock %}
+
+{% block extra_js%}
+<script>
+    (function(){
+        $(".select2").select2({
+          tags: true,
+          theme: 'bootstrap4'
+        });
+    })()
+</script>
+{% endblock %}

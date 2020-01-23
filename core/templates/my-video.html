@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"><i class="far fa-play-circle text-danger"></i> MiniTube</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="{% url 'scores' %}">Scores</a>
+      </div>
+    </div>
+  </nav>
+<div class="row pt-5">
+  <div class="col-md-7" style="padding-left: 5rem;">
+    <video
+      id="my-video"
+      class="video-js"
+      controls
+      preload="auto"
+      width="695"
+      height="391"
+      poster="{{ thumbnail }}"
+      data-setup="{}"
+    >
+      <source src="{{ video }}" type="video/mp4" />
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a
+        web browser that
+        <a href="https://videojs.com/html5-video-support/" target="_blank"
+          >supports HTML5 video</a
+        >
+      </p>
+    </video>
+  </div>
+  <div class="col-md-5" style="padding-right: 5rem;">
+    <h2>{{ title }}</h2>
+    <p>{{ created_at }}</p>
+    <p class="text-secondary text-font-3 mt-3" style="font-size: 1.5rem;"><a onclick="vote('/like/{{ video_id }}', 'up')" href="#" class="text-secondary"><i class="fas fa-thumbs-up mr-2 thumbs"></i></a><label class="mr-3"><label id="up">{{ thumbs_up }}</label> </label><a onclick="vote('/dislike/{{ video_id }}', 'down')" href="#" class="text-secondary"><i class="fas fa-thumbs-down mr-2 thumbs"></i></a><label id="down">{{ thumbs_down }}</label></p>
+    <p>{{ descr }}</p>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+  <link href="https://vjs.zencdn.net/7.6.6/video-js.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+  <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
+  <script>
+    (function(){
+      vote = function(url, type){
+        $.ajax({
+          url: url ,
+          method: 'GET',
+          success: function(res){
+            console.log(res);
+            $(`#${type}`).html(res['thumbs'])
+          }
+        })
+      }
+    })();
+  </script>
+{% endblock %}
