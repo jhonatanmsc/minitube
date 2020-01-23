@@ -64,16 +64,17 @@ class AddVideoView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = request.POST
+        files = request.FILES
         video = Video.objects.create(
             title=form['title'],
-            media='videos/'+form['media'],
+            media=files['media'],
             descr=form['descr'],
-            thumbnail='thumbnail/'+form['thumbnail'],
+            thumbnail=files['thumbnail'],
         )
-        for theme in form['themes']:
-            if video.themes.filter(descr=theme) and not Theme.object.filter(descr=theme):
-                new_theme = Theme.objects.create(descr=theme)
-                video.themes.add(new_theme)
+        # for theme in form['themes']:
+        #     if video.themes.filter(descr=theme) and not Theme.object.filter(descr=theme):
+        #         new_theme = Theme.objects.create(descr=theme)
+        #         video.themes.add(new_theme)
         video.save()
         return redirect('/')
 
