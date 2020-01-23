@@ -82,8 +82,10 @@ WSGI_APPLICATION = 'minitube.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        # 'NAME': env('DB_NAME'),
-        'URL': env('MONGODB_URI'),
+        'NAME': env('DB_NAME'),
+        'URL': env('DB_URL'),
+        'PASSWORD': env('DB_PWD'),
+        'USER': env('DB_USER')
     }
 }
 
