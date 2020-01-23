@@ -83,7 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         # 'NAME': env('DB_NAME'),
-        'URL': env('MONGODB_URI'),
+        'DATABASE_URL': env('MONGODB_URI'),
     }
 }
 
