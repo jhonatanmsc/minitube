@@ -6,7 +6,7 @@ Deeper systems challenge
 - python == 3.6
 
 ### instructions:
-- first install dependencys with:
+- first install dependencies with:
 ```bash
 $ pip install -r requirements.txt
 ```
